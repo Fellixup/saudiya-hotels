@@ -91,60 +91,35 @@ button{font:inherit;cursor:pointer;color:inherit}
 .lang-menu button small{font-size:11px;letter-spacing:.14em;color:var(--ink-3)}
 
 /* ---------- entrance gate ---------- */
-.gate{display:none;position:fixed;inset:0;z-index:1000;overflow:hidden;cursor:pointer;color:#f6ead6;-webkit-tap-highlight-color:transparent}
+@property --r{syntax:"<length>";inherits:false;initial-value:0px}
+.gate{display:none;position:fixed;inset:0;z-index:1000;overflow:hidden;cursor:pointer;color:#f6ead6;-webkit-tap-highlight-color:transparent;
+  background:radial-gradient(ellipse 110% 75% at 50% 42%,#21457a 0%,#122a50 52%,#0c1d38 100%);--r:0px;
+  -webkit-mask-image:radial-gradient(circle at var(--cx,50%) var(--cy,45%),transparent var(--r),#000 calc(var(--r) + 1px));
+  mask-image:radial-gradient(circle at var(--cx,50%) var(--cy,45%),transparent var(--r),#000 calc(var(--r) + 1px));
+  transition:--r 1.05s cubic-bezier(.7,0,.2,1) .1s,opacity .7s ease}
 html.has-gate .gate{display:block}
 html.intro body{overflow:hidden}
-.gate .door{position:absolute;top:0;bottom:0;width:50.4%;background:radial-gradient(ellipse 120% 90% at 100% 50%,#2c5084 0%,#17325c 42%,#0c1d38 100%);transition:transform 1.3s cubic-bezier(.77,0,.18,1) .3s}
-.gate .door::before{content:"";position:absolute;inset:0;background:var(--pattern-gold);background-size:64px;opacity:.13;animation:gpan 40s linear infinite}
-.gate .door::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent 4%,rgba(205,176,138,.7) 14%,rgba(205,176,138,.25) 17%,transparent 19%,transparent 85%,rgba(205,176,138,.25) 87%,rgba(205,176,138,.7) 90%,transparent 97%)}
-.gate .door.l{left:0}
-.gate .door.l::after{right:0}
-.gate .door.r{right:0;background:radial-gradient(ellipse 120% 90% at 0% 50%,#2c5084 0%,#17325c 42%,#0c1d38 100%)}
-.gate .door.r::after{left:0}
-@keyframes gpan{to{background-position:64px 128px}}
-.gate-fr{position:absolute;inset:clamp(12px,2.4vw,26px);border:1px solid rgba(205,176,138,.28);border-radius:6px;pointer-events:none;animation:gfade 1.4s .1s both;transition:opacity .5s}
-.gate-fr::before,.gate-fr::after{content:"";position:absolute;inset:7px;border:1px solid rgba(205,176,138,.12);border-radius:3px}
-.gate-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;transition:opacity .55s ease,transform .9s cubic-bezier(.2,.7,.2,1),filter .55s}
-.gate-mark{position:relative;width:clamp(150px,30vw,210px);aspect-ratio:1}
-.gate-mark svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;animation:gspin 60s linear infinite}
-.gate-mark .st{fill:none;stroke:#cdb08a;stroke-width:.9;stroke-dasharray:1;stroke-dashoffset:1;animation:gdraw 1.5s cubic-bezier(.6,0,.2,1) forwards}
-.gate-mark .st:nth-child(2){animation-delay:.18s}
-.gate-mark .st:nth-child(3){animation-delay:.36s;stroke-width:.6}
-.gate-mark .st:nth-child(4){animation-delay:.5s;stroke-width:.5;opacity:.6}
-.gate-mark .glow{position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle,rgba(255,226,170,.28),transparent 70%);animation:gglow 3s .6s ease-in-out infinite alternate both}
-.gate-s{position:absolute;inset:0;display:grid;place-items:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(60px,12vw,88px);font-weight:500;line-height:1;color:#f6ead6;animation:gs 1.2s .6s cubic-bezier(.2,.7,.2,1) both}
-.gate-name{margin:30px 0 0;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(30px,6.4vw,58px);font-weight:500;line-height:1;letter-spacing:.42em;padding-inline-start:.42em;color:#f6ead6;white-space:nowrap}
-.gate-name span{display:inline-block;animation:glet 1s calc(1s + var(--i) * .08s) cubic-bezier(.2,.7,.2,1) both}
-.gate-line{display:block;width:min(280px,62vw);height:1px;margin:22px auto 16px;background:linear-gradient(90deg,transparent,#cdb08a,transparent);animation:ggrow 1.1s 1.6s cubic-bezier(.6,0,.2,1) both}
-.gate-sub{font-size:11px;font-weight:500;letter-spacing:.72em;padding-inline-start:.72em;text-transform:uppercase;color:#cdb08a;animation:gfade 1s 1.8s both}
-.gate-wel{margin:26px 0 0;font-family:var(--serif);font-style:italic;font-size:clamp(21px,2.6vw,29px);color:rgba(246,234,214,.92);animation:gup 1.1s 2.05s cubic-bezier(.2,.7,.2,1) both}
-.gate-wel small{display:block;margin-top:10px;font-family:var(--sans);font-style:normal;font-size:11.5px;letter-spacing:.34em;text-transform:uppercase;color:#cdb08a;opacity:.95}
-html[lang=ar] .gate-wel{font-style:normal}
-html[lang=ar] .gate-wel small{letter-spacing:.08em;font-size:13px}
-html[lang=ar] .gate .gate-name,html[lang=ar] .gate .gate-name span{letter-spacing:.42em!important}
-html[lang=ar] .gate .gate-sub{letter-spacing:.72em!important}
-.gate-bar{position:absolute;left:50%;bottom:clamp(34px,8vh,70px);width:min(220px,50vw);height:1px;margin-left:calc(min(220px,50vw) / -2);background:rgba(205,176,138,.2);overflow:hidden;transition:opacity .4s;animation:gfade 1s .4s both}
-.gate-bar i{display:block;height:100%;background:linear-gradient(90deg,#a98a5f,#f0d9b0);transform-origin:left center;transform:scaleX(var(--p,0))}
-[dir=rtl] .gate-bar i{transform-origin:right center}
-.gate::after{content:"";position:absolute;z-index:3;top:0;bottom:0;left:50%;width:2px;margin-left:-1px;background:linear-gradient(180deg,transparent,#ffe7bd 18%,#fff8ea 50%,#ffe7bd 82%,transparent);box-shadow:0 0 46px 14px rgba(255,222,160,.5);opacity:0;transform:scaleY(0);pointer-events:none}
-.gate.open::after{animation:gseam 1.5s cubic-bezier(.4,0,.2,1) both}
-.gate.open .gate-c{opacity:0;transform:scale(1.1);filter:blur(8px)}
-.gate.open .gate-fr,.gate.open .gate-bar{opacity:0}
-.gate.open .door.l{transform:translateX(-101%)}
-.gate.open .door.r{transform:translateX(101%)}
+.gate.fade{opacity:0}
+.gate-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.2vh,20px);text-align:center;padding:24px}
+.gate-mark{position:relative;width:clamp(150px,34vw,220px);aspect-ratio:1;transition:transform .9s cubic-bezier(.4,0,.2,1),opacity .9s ease}
+.gate-mark svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gate-mark .st{fill:none;stroke:#cdb08a;stroke-width:1;stroke-dasharray:1;stroke-dashoffset:1;animation:gdraw 1.3s cubic-bezier(.6,0,.2,1) forwards}
+.gate-mark .st:nth-child(2){animation-delay:.15s}
+.gate-mark .st:nth-child(3){animation-delay:.3s}
+.gate-s{position:absolute;inset:0;display:grid;place-items:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(64px,14vw,96px);font-weight:500;line-height:1;color:#f6ead6;animation:gsIn 1s .65s cubic-bezier(.2,.7,.2,1) both}
+.gate-name{margin:6px 0 0;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(30px,6.6vw,56px);font-weight:500;line-height:1;letter-spacing:.36em;padding-inline-start:.36em;color:#f6ead6;white-space:nowrap;animation:gtrack 1.3s .8s cubic-bezier(.2,.7,.2,1) both;transition:opacity .4s}
+.gate-sub{font-size:11px;font-weight:500;letter-spacing:.7em;padding-inline-start:.7em;text-transform:uppercase;color:#cdb08a;animation:gfade .6s 1.3s both;transition:opacity .4s}
+html[lang=ar] .gate .gate-name{letter-spacing:.36em!important}
+html[lang=ar] .gate .gate-sub{letter-spacing:.7em!important}
+.gate.open .gate-mark{transform:scale(1.5);opacity:0}
+.gate.open .gate-name,.gate.open .gate-sub{opacity:0}
 @keyframes gdraw{to{stroke-dashoffset:0}}
-@keyframes gspin{to{transform:rotate(360deg)}}
-@keyframes gglow{from{opacity:.35;transform:scale(.9)}to{opacity:1;transform:scale(1.15)}}
-@keyframes gs{from{opacity:0;transform:scale(.6);filter:blur(12px)}}
-@keyframes glet{from{opacity:0;transform:translateY(.5em);filter:blur(10px)}}
-@keyframes ggrow{from{transform:scaleX(0)}}
+@keyframes gsIn{from{opacity:0;transform:scale(.75);filter:blur(8px)}}
+@keyframes gtrack{from{opacity:0;letter-spacing:.9em;filter:blur(6px)}}
 @keyframes gfade{from{opacity:0}}
-@keyframes gup{from{opacity:0;transform:translateY(14px)}}
-@keyframes gseam{0%{opacity:0;transform:scaleY(0)}22%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
-html.intro-quick .gate *,html.intro-quick .gate *::before{animation-delay:0s!important;animation-duration:.5s!important}
-html.intro-quick .gate .door::before{animation-duration:40s!important}
-html.intro-quick .gate-mark svg{animation-duration:60s!important}
-html.intro-quick .gate-mark .glow{animation-duration:3s!important}
+@keyframes gs{from{opacity:0;transform:scale(.6);filter:blur(12px)}}
+@keyframes ggrow{from{transform:scaleX(0)}}
+html.intro-quick .gate *{animation-delay:0s!important;animation-duration:.5s!important}
 
 /* ---------- hero ---------- */
 .hero{position:relative;padding:150px 0 40px;text-align:center;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#fbf7f1 0%,var(--bg) 60%)}
@@ -517,40 +492,40 @@ html[lang=ar] .hero-sign .script,html[lang=ar] footer .script{font-family:var(--
 </head>
 <body>
 <div class="gate" id="gate" aria-hidden="true">
-  <div class="door l"></div><div class="door r"></div>
-  <div class="gate-fr"></div>
   <div class="gate-c">
     <div class="gate-mark">
-      <span class="glow"></span>
-      <svg viewBox="0 0 200 200"><rect class="st" x="45" y="45" width="110" height="110" pathLength="1"/><rect class="st" x="45" y="45" width="110" height="110" transform="rotate(45 100 100)" pathLength="1"/><circle class="st" cx="100" cy="100" r="88" pathLength="1"/><circle class="st" cx="100" cy="100" r="96" pathLength="1"/></svg>
+      <svg viewBox="0 0 200 200"><rect class="st" x="52" y="52" width="96" height="96" pathLength="1"/><rect class="st" x="52" y="52" width="96" height="96" transform="rotate(45 100 100)" pathLength="1"/><circle class="st" cx="100" cy="100" r="88" pathLength="1"/></svg>
       <span class="gate-s">S</span>
     </div>
-    <p class="gate-name" dir="ltr"><span style="--i:0">S</span><span style="--i:1">A</span><span style="--i:2">U</span><span style="--i:3">D</span><span style="--i:4">I</span><span style="--i:5">Y</span><span style="--i:6">A</span></p>
-    <i class="gate-line"></i>
+    <p class="gate-name" dir="ltr">SAUDIYA</p>
     <span class="gate-sub">Hotels</span>
-    <p class="gate-wel"><span data-i="welcome"></span><small data-i="introSub"></small></p>
   </div>
-  <span class="gate-bar"><i></i></span>
 </div>
 <script>
 (function(){
   var d = document.documentElement, g = document.getElementById("gate");
   if (!d.classList.contains("has-gate")) { g.remove(); return; }
-  var bar = g.querySelector(".gate-bar i"), quick = d.classList.contains("intro-quick");
-  var MIN = quick ? 1100 : 3400, CAP = 7000, t0 = performance.now(), ready = false, opened = false;
+  var quick = d.classList.contains("intro-quick");
+  var MIN = quick ? 700 : 1950, CAP = 6000, t0 = performance.now(), ready = false, opened = false;
+  // the site opens through a circle from the star; without @property/mask support it simply fades
+  var iris = !!(window.CSS && CSS.registerProperty && CSS.supports &&
+    (CSS.supports("mask-image", "radial-gradient(#000,#000)") || CSS.supports("-webkit-mask-image", "radial-gradient(#000,#000)")));
   var waits = [new Promise(function(r){ if (document.readyState === "complete") r(); else addEventListener("load", r, {once:true}); })];
   if (document.fonts && document.fonts.ready) waits.push(document.fonts.ready);
   Promise.all(waits).then(function(){ ready = true; }, function(){ ready = true; });
   function open(){
     if (opened) return; opened = true;
-    bar.style.setProperty("--p", 1); g.classList.add("open");
-    setTimeout(function(){ d.classList.remove("intro"); window.dispatchEvent(new Event("gateopen")); }, 420);
-    setTimeout(function(){ d.classList.remove("has-gate"); g.remove(); }, 2000);
+    var m = g.querySelector(".gate-mark").getBoundingClientRect(), cx = m.left + m.width / 2, cy = m.top + m.height / 2;
+    var r = Math.ceil(Math.hypot(Math.max(cx, innerWidth - cx), Math.max(cy, innerHeight - cy)) * 1.06) + 24;
+    g.style.setProperty("--cx", cx + "px"); g.style.setProperty("--cy", cy + "px");
+    g.classList.add("open");
+    if (iris) requestAnimationFrame(function(){ g.style.setProperty("--r", r + "px"); }); else g.classList.add("fade");
+    d.classList.remove("intro"); window.dispatchEvent(new Event("gateopen"));
+    setTimeout(function(){ d.classList.remove("has-gate"); g.remove(); }, 1400);
   }
   (function tick(){
     if (opened) return;
-    var e = performance.now() - t0, p = Math.min(e / MIN, ready ? 1 : .9);
-    bar.style.setProperty("--p", p.toFixed(3));
+    var e = performance.now() - t0;
     if ((e >= MIN && ready) || e >= CAP) return open();
     requestAnimationFrame(tick);
   })();
